@@ -27,6 +27,7 @@ app.get("/api/get/all_tags",(req, res) => {
     })
 })
 
+//タグテーブルに挿入する
 app.post('/api/tag/insert', (req,res) => {
     const tagName = req.body.tagName    
     const sqlInsert = 
@@ -36,6 +37,21 @@ app.post('/api/tag/insert', (req,res) => {
             console.log(err)
         }
         console.log(result)
+    })
+})
+
+app.post('/api/paper/insert', (req,res) => {
+    const content = req.body.content
+    const year = req.body.year
+    const doi = req.body.doi
+    const sqlInsert = "INSERT INTO papers (Content,Year,Doi) VALUES (?,?,?)"
+    db.query(sqlInsert,[content,year,doi],(err,result) => {
+        if(err){
+            console.log(err)
+        }else{
+            console.log(result)
+            console.log("success insert paper!")
+        }
     })
 })
 
