@@ -71,6 +71,21 @@ app.post('/api/paper_tag/insert', (req, res) => {
     })
 })
 
+app.get('/api/paper_tag/get', (req, res) => {
+    const sql = "SELECT TagId FROM paper_tag_table WHERE PaperId=(?) "
+    console.log("req.query")
+    console.log(req.query)
+    const PaperId = req.query.PaperId
+    db.query(sql, [PaperId], (err, result) => {
+        if (err) {
+            console.log(err)
+        } else {
+            res.send(result)
+            console.log("get 中間テーブル")
+        }
+    })
+})
+
 //最新のpaperを取得
 app.get('/api/papers/latest', (req, res) => {
     const sqlLatest = "select * from papers order by PaperId desc limit 1"
@@ -78,7 +93,6 @@ app.get('/api/papers/latest', (req, res) => {
         if (err) {
             console.log(err)
         }
-        console.log(result)
         res.send(result)
     })
 })
@@ -90,7 +104,6 @@ app.get('/api/papers/get_all_papers', (req, res) => {
         if (err) {
             console.log(err)
         }
-        console.log(result)
         res.send(result)
     })
 })
