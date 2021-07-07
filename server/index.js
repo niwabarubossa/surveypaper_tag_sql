@@ -15,7 +15,6 @@ app.use(cors())
 app.use(express.json())
 app.use(express.urlencoded({extended: true}))
 
-
 app.get("/api/get",(req, res) => {
     const sqlGet = "SELECT * FROM movie_reviews"
     db.query(sqlGet,(err, result) => {
@@ -24,6 +23,18 @@ app.get("/api/get",(req, res) => {
         }else{
             res.send(result)
         }
+    })
+})
+
+app.post('/api/tag/insert', (req,res) => {
+    const tagName = req.body.tagName    
+    const sqlInsert = 
+        "INSERT INTO tags (Name) VALUES (?)"
+    db.query(sqlInsert,[tagName],(err , result)=>{
+        if (err){
+            console.log(err)
+        }
+        console.log(result)
     })
 })
 
