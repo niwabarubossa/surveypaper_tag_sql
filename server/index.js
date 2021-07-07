@@ -15,8 +15,9 @@ app.use(cors())
 app.use(express.json())
 app.use(express.urlencoded({extended: true}))
 
-app.get("/api/get",(req, res) => {
-    const sqlGet = "SELECT * FROM movie_reviews"
+//sqlから全てのタグデータを取得
+app.get("/api/get/all_tags",(req, res) => {
+    const sqlGet = "SELECT * FROM tags"
     db.query(sqlGet,(err, result) => {
         if (err){
             console.log(err)
