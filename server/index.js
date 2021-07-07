@@ -55,6 +55,18 @@ app.post('/api/paper/insert', (req,res) => {
     })
 })
 
+//最新のpaperを取得
+app.get('/api/papers/latest', (req,res) => {
+    const sqlLatest = "select * from papers order by PaperId desc limit 1"
+    db.query(sqlLatest, (err,result) => {
+        if (err){
+            console.log(err)
+        }
+        console.log(result)
+        res.send(result)
+    })
+})
+
 app.post('/api/insert', (req,res) => {
     const movieName = req.body.movieName
     const movieReview = req.body.movieReview    
