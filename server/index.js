@@ -55,6 +55,21 @@ app.post('/api/paper/insert', (req,res) => {
     })
 })
 
+//中間テーブルの生成
+app.post('/api/paper_tag/insert', (req,res) => {
+    const PaperId = req.body.PaperId
+    const TagId = req.body.TagId
+    const sqlInsert = "INSERT INTO paper_tag_table (PaperId,TagId) VALUES (?,?)"
+    db.query(sqlInsert,[PaperId,TagId],(err,result) => {
+        if(err){
+            console.log(err)
+        }else{
+            console.log(result)
+            console.log("success 中間テーブル")
+        }
+    })
+})
+
 //最新のpaperを取得
 app.get('/api/papers/latest', (req,res) => {
     const sqlLatest = "select * from papers order by PaperId desc limit 1"
